@@ -4,7 +4,7 @@
 <div align="center">
   <br/>
 
-  <h3><b>Enumerables  README</b></h3>
+  <h3><b>School library  README</b></h3>
 
 </div>
 
@@ -31,8 +31,8 @@
 - [🙏 Acknowledgements](#acknowledgements)
 - [📝 License](#license)
 
-# 📖 [Enumerables ] <a name="about-project"></a>
-**[Enumerables]** is a project that define various methods. 
+# 📖 [School library ] <a name="about-project"></a>
+**[School library]** is a project that define various methods. 
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -49,7 +49,7 @@
 ### Key Features <a name="key-features"></a>
 
 
-- **[Create individual enumerables]**
+- **[Create individual School library]**
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
