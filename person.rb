@@ -1,7 +1,4 @@
 require_relative 'nameable'
-# Make sure that your Person class inherits from Nameable
-# Make sure that this class has a method correct_name implemented. It should simply return the name attribute.
-
 class Person < Nameable
   attr_accessor :name, :age
   attr_reader :id
