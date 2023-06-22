@@ -1,6 +1,8 @@
 require_relative 'person'
+require_relative 'student'
 require_relative 'book'
 require_relative 'rental'
+require_relative 'teacher'
 
 class App
   def initialize
@@ -30,19 +32,23 @@ class App
     name = gets.chomp
     puts 'Enter person age:'
     age = gets.chomp.to_i
-
     if person_type == 'student'
-      puts 'Enter classroom label:'
-      classroom_label = gets.chomp
-      student = Student.new(@people.length + 1, name, age, classroom: classroom_label)
+      puts 'Enter classroom:'
+      class_name = gets.chomp
+      puts 'Student has parent permission :'
+      permission = gets.chomp
+      student = Student.new(@people.length + 1, name, age, classroom: class_name, parent_permission: permission)
       @people << student
       puts 'Student created successfully!'
     elsif person_type == 'teacher'
-      teacher = Teacher.new(@people.length + 1, name, age)
+      puts 'Enter specialization:'
+      specialization = gets.chomp
+      teacher = Teacher.new(@people.length + 1, name, age, specialization: specialization)
       @people << teacher
       puts 'Teacher created successfully!'
     else
       puts 'Invalid person type.'
+
     end
   end
 
