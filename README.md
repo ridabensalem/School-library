@@ -83,6 +83,7 @@ https://github.com/ridabensalem/School-library.git
 ```sh
   cd my-folder
 https://github.com/ridabensalem/School-library.git```
+```
 
 ### Install
 
