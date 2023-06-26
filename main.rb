@@ -1,15 +1,5 @@
 require_relative 'app'
-
-def display_options
-  puts 'Choose an option:'
-  puts '1. List all books'
-  puts '2. List all people'
-  puts '3. Create a person'
-  puts '4. Create a book'
-  puts '5. Create a rental'
-  puts '6. List rentals for a person'
-  puts '7. Quit'
-end
+require_relative 'options'
 
 def process_option(app, option)
   actions = {
@@ -22,6 +12,7 @@ def process_option(app, option)
     7 => -> { puts 'Exiting the app...' }
   }
 
+  # making choice conditons
   action = actions[option]
   if action
     action.call
@@ -33,11 +24,14 @@ def process_option(app, option)
 end
 
 def main
+  options = Options.new
   app = App.new
+  # getting the user input
+  user_input = -> { gets.chomp.to_i }
 
   loop do
-    display_options
-    option = gets.chomp.to_i
+    options.display_options
+    option = user_input.call
     break unless process_option(app, option)
   end
 end
