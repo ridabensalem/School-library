@@ -3,6 +3,7 @@ require_relative 'student'
 require_relative 'book'
 require_relative 'rental'
 require_relative 'teacher'
+require 'json'
 
 class App
   def initialize
@@ -35,7 +36,7 @@ class App
     if person_type == 'student'
       puts 'Enter classroom:'
       class_name = gets.chomp
-      puts 'Student has parent permission :'
+      puts 'Student has parent permission:'
       permission = gets.chomp
       student = Student.new(@people.length + 1, name, age, classroom: class_name, parent_permission: permission)
       @people << student
@@ -48,7 +49,6 @@ class App
       puts 'Teacher created successfully!'
     else
       puts 'Invalid person type.'
-
     end
   end
 
@@ -94,8 +94,45 @@ class App
 
     puts "Rentals for Person ID #{person_id}:"
     person.rentals.each do |rental|
-      puts "Book: #{rental.book.title
-                  }, Rental Date: #{rental.date}"
+      puts "Book: #{rental.book.title}, Rental Date: #{rental.date}"
     end
+  end
+
+  def save_data(file_path)
+    data = {
+      people: @people,
+      books: @books,
+      rentals: @rentals
+    }
+
+    File.write(file_path, JSON.generate(data))
+
+    puts 'Data saved successfully!'
+  end
+
+  def load_data(file_path)
+    data = JSON.parse(File.read(file_path))
+
+    @people = data['people'].map do |person_data|
+      if person_data['classroom']
+        Student.new(person_data['id'], person_data['name'], person_data['age'], classroom: person_data['classroom'],
+                                                                                parent_permission: person_data['parent_permission'])
+      else
+        Teacher.new(person_data['id'], person_data['name'], person_data['age'],
+                    specialization: person_data['specialization'])
+      end
+    end
+
+    @books = data['books'].map do |book_data|
+      Book.new(book_data['title'], book_data['author'])
+    end
+
+    @rentals = data['rentals'].map do |rental_data|
+      book = @books.find { |b| b.title == rental_data['book']['title'] }
+      person = @people.find { |p| p.id == rental_data['person']['id'] }
+      Rental.new(rental_data['date'], book, person)
+    end
+
+    puts 'Data loaded successfully!'
   end
 end
