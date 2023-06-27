@@ -10,6 +10,7 @@ class App
     @people = []
     @books = []
     @rentals = []
+    load_data('./data/books.json', './data/rentals.json', './data/people.json')
   end
 
   def list_books
@@ -36,7 +37,7 @@ class App
     if person_type == 'student'
       puts 'Enter classroom:'
       class_name = gets.chomp
-      puts 'Student has parent permission:'
+      puts 'Student has parent permission :'
       permission = gets.chomp
       student = Student.new(@people.length + 1, name, age, classroom: class_name, parent_permission: permission)
       @people << student
@@ -50,6 +51,7 @@ class App
     else
       puts 'Invalid person type.'
     end
+    save_data('./data/books.json', './data/rentals.json', './data/people.json')
   end
 
   def create_book
@@ -61,6 +63,7 @@ class App
     book = Book.new(title, author)
     @books << book
     puts 'Book created successfully!'
+    save_data('./data/books.json', './data/rentals.json', './data/people.json')
   end
 
   def create_rental
@@ -84,6 +87,7 @@ class App
         puts 'Rental created successfully!'
       end
     end
+    save_data('./data/books.json', './data/rentals.json', './data/people.json')
   end
 
   def list_rentals_for_person
@@ -98,41 +102,62 @@ class App
     end
   end
 
-  def save_data(file_path)
+  def save_data(books_file, rentals_file, people_file)
     data = {
       people: @people,
       books: @books,
       rentals: @rentals
     }
 
-    File.write(file_path, JSON.generate(data))
+    File.write(books_file, JSON.generate(data[:books]))
+    File.write(rentals_file, JSON.generate(data[:rentals]))
+    File.write(people_file, JSON.generate(data[:people]))
 
     puts 'Data saved successfully!'
   end
 
-  def load_data(file_path)
-    data = JSON.parse(File.read(file_path))
+  def load_data(books_file, rentals_file, people_file)
+    if File.exist?(books_file) && File.exist?(rentals_file) && File.exist?(people_file)
+      books_data = JSON.parse(File.read(books_file))
+      rentals_data = JSON.parse(File.read(rentals_file))
+      people_data = JSON.parse(File.read(people_file))
 
-    @people = data['people'].map do |person_data|
-      if person_data['classroom']
-        Student.new(person_data['id'], person_data['name'], person_data['age'], classroom: person_data['classroom'],
-                                                                                parent_permission: person_data['parent_permission'])
-      else
-        Teacher.new(person_data['id'], person_data['name'], person_data['age'],
-                    specialization: person_data['specialization'])
+      @books = books_data.map do |book_data|
+        Book.new(book_data['title'], book_data['author'])
       end
-    end
 
-    @books = data['books'].map do |book_data|
-      Book.new(book_data['title'], book_data['author'])
-    end
+      @rentals = rentals_data.map do |rental_data|
+        book = @books.find { |b| b.title == rental_data['book']['title'] }
+        person = @people.find { |p| p.id == rental_data['person']['id'] }
+        Rental.new(rental_data['date'], book, person)
+      end
 
-    @rentals = data['rentals'].map do |rental_data|
-      book = @books.find { |b| b.title == rental_data['book']['title'] }
-      person = @people.find { |p| p.id == rental_data['person']['id'] }
-      Rental.new(rental_data['date'], book, person)
-    end
+      @people = people_data.map do |person_data|
+        if person_data.is_a?(String)
+          next
+        elsif person_data.key?('classroom')
+          Student.new(
+            person_data['id'],
+            person_data['name'],
+            person_data['age'],
+            classroom: person_data['classroom'],
+            parent_permission: person_data['parent_permission']
+          )
+        else
+          Teacher.new(
+            person_data['id'],
+            person_data['name'],
+            person_data['age'],
+            specialization: person_data['specialization']
+          )
+        end
+      end
 
-    puts 'Data loaded successfully!'
+      @people.compact! # Remove any nil entries
+
+      puts 'Data loaded successfully!'
+    else
+      puts 'No data files found. Starting with empty data.'
+    end
   end
 end

@@ -7,9 +7,7 @@ class Options
     puts '4. Create a book'
     puts '5. Create a rental'
     puts '6. List rentals for a person'
-    puts '7. Save data'
-    puts '8. Load data'
-    puts '9. Quit'
+    puts '7. Quit'
   end
 
   def process_option(app, option)
@@ -20,16 +18,13 @@ class Options
       4 => -> { app.create_book },
       5 => -> { app.create_rental },
       6 => -> { app.list_rentals_for_person },
-      7 => -> { puts 'Data saved.' },
-      8 => -> { puts 'Data loaded.' },
-      9 => -> { puts 'Exiting the app...' }
+      7 => -> { app.save_data('./data/books.json', './data/rentals.json', './data/people.json') }
     }
 
-    # making choice conditions
     action = actions[option]
     if action
       action.call
-      option != 9
+      option != 7
     else
       puts 'Invalid option. Please try again.'
       true
