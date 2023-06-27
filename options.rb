@@ -20,7 +20,7 @@ class Options
       6 => -> { app.list_rentals_for_person },
       7 => -> { puts 'Exiting the app...' }
     }
-  
+
     # making choice conditons
     action = actions[option]
     if action
