@@ -13,7 +13,22 @@ class App
     @people = []
     @books = []
     @rentals = []
+    create_json_files
     load_data('./data/books.json', './data/rentals.json', './data/people.json')
+  end
+
+  def create_json_files
+    Dir.mkdir('./data') unless Dir.exist?('./data')
+    create_file_if_not_exists('./data/books.json', [])
+    create_file_if_not_exists('./data/rentals.json', [])
+    create_file_if_not_exists('./data/people.json', [])
+  end
+
+  def create_file_if_not_exists(file_path, default_data)
+    return if File.exist?(file_path)
+
+    File.write(file_path, JSON.generate(default_data))
+    puts "Created #{file_path} file."
   end
 
   def list_books
