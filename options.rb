@@ -18,7 +18,7 @@ class Options
       4 => -> { app.create_book },
       5 => -> { app.create_rental },
       6 => -> { app.list_rentals_for_person },
-      7 => -> { app.save_data('./data/books.json', './data/rentals.json', './data/people.json') }
+      7 => -> {}
     }
 
     action = actions[option]
