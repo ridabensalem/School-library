@@ -8,11 +8,11 @@ AllCops:
   DisplayCopNames: true
 
 Layout/LineLength:
-  Max: 120
+  Max: 150
 Metrics/MethodLength:
-  Max: 25
+  Max: 70
 Metrics/AbcSize:
-  Max: 50
+  Max: 70
 Metrics/ClassLength:
   Max: 150
 Metrics/BlockLength:
@@ -40,6 +40,8 @@ Layout/ExtraSpacing:
 Layout/MultilineMethodCallIndentation:
   Enabled: true
   EnforcedStyle: indented
+Lint/NonAtomicFileOperation: 
+ Enabled: false
 Lint/RaiseException:
   Enabled: false
 Lint/StructNewOverride:

@@ -1,0 +1,1 @@
+[{"date":"2015-04-20","book":{"title":"summer","author":"rida","rentals":["#<Rental:0x000055d55a970150>"]},"person":{"id":1,"name":"jamal","age":19,"classroom":"a","parent_permission":"true","rentals":["#<Rental:0x000055d55a970150>"]}}]
