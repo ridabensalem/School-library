@@ -18,7 +18,7 @@ class Options
       4 => -> { app.create_book },
       5 => -> { app.create_rental },
       6 => -> { app.list_rentals_for_person },
-      7 => -> {}
+      7 => -> { puts 'Exiting the app...‍🚀'}
     }
 
     action = actions[option]
