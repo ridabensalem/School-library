@@ -44,7 +44,8 @@ class App
       permission = gets.chomp
       student = Student.new(@people.length + 1, name, age, classroom: class_name, parent_permission: permission)
 
-      @people << { 'id' => student.id, 'name' => student.name, 'age' => student.age, 'parent_permission' => student.parent_permission, 'rentals' => student.rentals }
+      @people << { 'id' => student.id, 'name' => student.name, 'age' => student.age, 'parent_permission' => student.parent_permission,
+                   'rentals' => student.rentals }
 
       File.write('./data/people.json', JSON.generate(@people))
 
@@ -55,7 +56,8 @@ class App
       specialization = gets.chomp
       teacher = Teacher.new(@people.length + 1, name, age, specialization: specialization)
 
-      @people <<  { 'id' => teacher.id, 'name' => teacher.name, 'age' => teacher.age, 'specialization' => teacher.specialization, 'rentals' => teacher.rentals }
+      @people << { 'id' => teacher.id, 'name' => teacher.name, 'age' => teacher.age, 'specialization' => teacher.specialization,
+                   'rentals' => teacher.rentals }
 
       File.write('./data/people.json', JSON.generate(@people))
 
@@ -92,14 +94,14 @@ class App
       else
         puts 'Enter rental date (YYYY-MM-DD):'
         date = gets.chomp
-  
+
         rental = Rental.new(date, book, person)
-        @rentals <<  { 'date' => rental.date, 'book' => rental.book, 'person' => rental.person }
+        @rentals << { 'date' => rental.date, 'book' => rental.book, 'person' => rental.person }
         File.write('./data/rentals.json', JSON.generate(@rentals))
         puts 'Rental created successfully!'
       end
     end
-  end  
+  end
 
   def list_rentals_for_person
     puts 'Enter person ID:'
