@@ -1,1 +1,1 @@
-[{"date":"12/12/1222","book":"#<Book:0x00000260e9e43788>","person":"#<Teacher:0x00000260f093fb90>"}]
+[{"date":"2004-09-11","book":{"title":"summer","author":"sara lot","rentals":["#<Rental:0x0000562b38af4d80>"]},"person":{"id":1,"name":"rida","age":20,"classroom":"a","parent_permission":"true","rentals":["#<Rental:0x0000562b38af4d80>"]}},{"date":"2013-05-22","book":{"title":"algo","author":"martin lother","rentals":["#<Rental:0x0000562b38ae7608>"]},"person":{"id":2,"name":"sam","age":23,"classroom":"b","parent_permission":"true","rentals":["#<Rental:0x0000562b38ae7608>"]}}]
