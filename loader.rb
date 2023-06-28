@@ -1,6 +1,6 @@
 module Loader
-  def data_files_exist?(book, rentals, people)
-    File.exist?(book) && File.exist?(rentals) && File.exist?(people)
+  def data_files_exist?(books_file, rentals_file, people_file)
+    File.exist?(books_file) && File.exist?(rentals_file) && File.exist?(people_file)
   end
 
   def load_books(books_file)
