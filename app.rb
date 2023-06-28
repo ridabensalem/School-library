@@ -37,29 +37,56 @@ class App
     name = gets.chomp
     puts 'Enter person age:'
     age = gets.chomp.to_i
+
     if person_type == 'student'
       puts 'Enter classroom:'
-      class_name = gets.chomp
-      puts 'Student has parent permission :'
-      permission = gets.chomp
-      student = Student.new(@people.length + 1, name, age, classroom: class_name, parent_permission: permission)
+      classroom = gets.chomp
+      puts 'Does the student have parent permission (true/false):'
+      parent_permission = gets.chomp
 
-      @people << { 'id' => student.id, 'name' => student.name, 'age' => student.age, 'parent_permission' => student.parent_permission,
-                   'rentals' => student.rentals }
+      student = Student.new(@people.length + 1, name, age, classroom: classroom, parent_permission: parent_permission)
 
-      File.write('./data/people.json', JSON.generate(@people))
+      # Load existing people data from the JSON file
+      people_data = JSON.parse(File.read('./data/people.json'))
+
+      person_data = {
+        'id' => student.id,
+        'name' => student.name,
+        'age' => student.age,
+        'classroom' => student.classroom,
+        'parent_permission' => student.parent_permission,
+        'rentals' => student.rentals
+      }
+
+      # Add the new person object to the existing array
+      people_data << person_data
+
+      # Write the updated array back to the JSON file
+      File.write('./data/people.json', JSON.generate(people_data))
 
       puts 'Student created successfully!'
-
     elsif person_type == 'teacher'
       puts 'Enter specialization:'
       specialization = gets.chomp
+
       teacher = Teacher.new(@people.length + 1, name, age, specialization: specialization)
 
-      @people << { 'id' => teacher.id, 'name' => teacher.name, 'age' => teacher.age, 'specialization' => teacher.specialization,
-                   'rentals' => teacher.rentals }
+      # Load existing people data from the JSON file
+      people_data = JSON.parse(File.read('./data/people.json'))
 
-      File.write('./data/people.json', JSON.generate(@people))
+      person_data = {
+        'id' => teacher.id,
+        'name' => teacher.name,
+        'age' => teacher.age,
+        'specialization' => teacher.specialization,
+        'rentals' => teacher.rentals
+      }
+
+      # Add the new person object to the existing array
+      people_data << person_data
+
+      # Write the updated array back to the JSON file
+      File.write('./data/people.json', JSON.generate(people_data))
 
       puts 'Teacher created successfully!'
     else
@@ -74,8 +101,22 @@ class App
     author = gets.chomp
 
     book = Book.new(title, author)
-    @books << { 'title' => book.title, 'author' => book.author, 'rentals' => book.rentals }
-    File.write('./data/books.json', JSON.generate(@books))
+
+    # Load existing books data from the JSON file
+    books_data = JSON.parse(File.read('./data/books.json'))
+
+    book_data = {
+      'title' => book.title,
+      'author' => book.author,
+      'rentals' => book.rentals
+    }
+
+    # Add the new book object to the existing array
+    books_data << book_data
+
+    # Write the updated array back to the JSON file
+    File.write('./data/books.json', JSON.generate(books_data))
+
     puts 'Book created successfully!'
   end
 
@@ -96,8 +137,33 @@ class App
         date = gets.chomp
 
         rental = Rental.new(date, book, person)
-        @rentals << { 'date' => rental.date, 'book' => rental.book, 'person' => rental.person }
-        File.write('./data/rentals.json', JSON.generate(@rentals))
+
+        # Load existing rentals data from the JSON file
+        rentals_data = JSON.parse(File.read('./data/rentals.json'))
+
+        rental_data = {
+          'date' => rental.date,
+          'book' => {
+            'title' => rental.book.title,
+            'author' => rental.book.author,
+            'rentals' => rental.book.rentals
+          },
+          'person' => {
+            'id' => rental.person.id,
+            'name' => rental.person.name,
+            'age' => rental.person.age,
+            'classroom' => rental.person.classroom,
+            'parent_permission' => rental.person.parent_permission,
+            'rentals' => rental.person.rentals
+          }
+        }
+
+        # Add the new rental object to the existing array
+        rentals_data << rental_data
+
+        # Write the updated array back to the JSON file
+        File.write('./data/rentals.json', JSON.generate(rentals_data))
+
         puts 'Rental created successfully!'
       end
     end
