@@ -92,7 +92,13 @@ Install this project with:
 ` cd School-library
   - Run gem install after cloning the repo
 
-### Usage
+### Run Tests
+To run test for this project
+
+```shell
+cd testing/
+rpec spec 'test_spec.rb'
+```
 
 
 
@@ -105,6 +111,11 @@ Install this project with:
 - GitHub: [@ridabensalem](https://github.com/ridabnesalem)
 - Twitter: [@coder_rida](https://twitter.com/coder_rida)
 - LinkedIn: [ridabesalem](https://linkedin.com/in/ridabensalem)
+
+👤 **Author2**
+
+- GitHub: [Richard](https://github.com/ikennarichard)
+- LinkedIn: [Richard](https://linkedin.com/in/ikenna-richard)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
