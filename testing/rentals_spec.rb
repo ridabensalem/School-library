@@ -1,10 +1,9 @@
 require_relative '../person'
 require_relative '../rental'
 require_relative '../book'
-require_relative '../person'
 
 RSpec.describe Rental do
-  let(:date) {'1200/12/12'}
+  let(:date) { '1200/12/12' }
   let(:book) { Book.new('Title', 'Author-1') }
   let(:person) { Person.new('John Doe') }
   let(:rental) { Rental.new(date, book, person) }

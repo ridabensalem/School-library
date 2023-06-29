@@ -39,5 +39,4 @@ RSpec.describe Person do
       expect(person.rentals).to include(rental)
     end
   end
-
 end

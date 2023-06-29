@@ -24,7 +24,6 @@ RSpec.describe Student do
 
     context 'when name is not provided' do
       let(:student) { Student.new(id, age, classroom: classroom, parent_permission: parent_permission) }
-
     end
   end
 
@@ -33,5 +32,4 @@ RSpec.describe Student do
       expect(student.play_hooky).to eq('¯\(ツ)/¯')
     end
   end
-
 end

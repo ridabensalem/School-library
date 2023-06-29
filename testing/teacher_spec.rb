@@ -22,7 +22,6 @@ RSpec.describe Teacher do
 
     context 'when name is not provided' do
       let(:teacher) { Teacher.new(id, age, specialization: specialization, parent_permission: parent_permission) }
-
     end
   end
 
@@ -31,5 +30,4 @@ RSpec.describe Teacher do
       expect(teacher.can_use_services?).to eq(true)
     end
   end
-
 end

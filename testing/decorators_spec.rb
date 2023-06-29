@@ -5,12 +5,12 @@ require_relative '../trimmer_decorator'
 require_relative '../person'
 
 RSpec.describe Decorator do
-  let(:person) { Person.new(12, 'mississippi')}
-  let(:book) { Book.new('book-1', 'Person')}
+  let(:person) { Person.new(12, 'mississippi') }
+  let(:book) { Book.new('book-1', 'Person') }
   let(:capitalize_person) { CapitalizeDecorator.new(person) }
   let(:trimmer) { TrimmerDecorator.new(capitalize_person) }
   let(:decorator) { Decorator.new(person) }
- 
+
   describe 'initialize' do
     it 'sets the nameable attribute' do
       expect(decorator.correct_name).to eq('mississippi')

@@ -6,7 +6,6 @@ RSpec.describe Classroom do
   let(:student1) { Student.new('Tegs') }
   let(:student2) { Student.new('Bob') }
 
-
   describe 'initializes' do
     it 'creates a new classroom' do
       expect(classroom.label).to eq('Arts')
